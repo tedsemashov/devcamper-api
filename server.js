@@ -2,6 +2,7 @@ require('colors');
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
 
 // Load env vars
@@ -27,12 +28,16 @@ if (process.env.NODE_ENV === 'development') {
 // Mount routers
 app.use('/api/v1/bootcamps', bootcamps);
 
+// Custom error handler
+// Want to use for bootcamps. Initialize after bootcamps API initialization
+app.use(errorHandler);
+
 const PORT = process.env.PORT || 5000;
 // Listen server
 const server = app.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold));
 
 // Handle unhandled promise rejections
-process.on('unhandledRejection', (err) => {
+process.on('unhandledRejection', err => {
   console.log(`Error: ${err.message}`.bold.red);
 
   // Close server & exit process
