@@ -13,5 +13,7 @@ module.exports = {
   rules: {
     quotes: ['error', 'single'],
     'arrow-parens': ['error', 'as-needed'],
+    'no-underscore-dangle': 'off',
+    'no-console': 'off',
   },
 };

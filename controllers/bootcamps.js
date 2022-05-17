@@ -21,7 +21,7 @@ exports.getBootcamps = asyncHandler(async (req, res) => {
     .replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`); // https://www.mongodb.com/docs/manual/reference/operator/query/gt/
 
   // Finding resource
-  query = Bootcamp.find(JSON.parse(query));
+  query = Bootcamp.find(JSON.parse(query)).populate('courses');
 
   // Select Fields (jus what we need, like name, description, etc)
   if (req.query.select) {
@@ -115,11 +115,13 @@ exports.updateBootcamp = asyncHandler(async (req, res, next) => {
 // @route   DELETE /api/v1/bootcamps/:id
 // @access  Private
 exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
-  const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
+  const bootcamp = await Bootcamp.findById(req.params.id);
 
   if (!bootcamp) {
     return next(new ErrorResponse(`Bootcamp not found with id ${req.params.id}`, 404));
   }
+
+  bootcamp.remove();
 
   return res.status(200).json({ success: true, data: {} });
 });
