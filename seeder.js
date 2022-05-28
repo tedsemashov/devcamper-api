@@ -18,13 +18,13 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Read JSON files
 const bootcamps = JSON.parse(fs.readFileSync(`${__dirname}/_data/bootcamps.json`, 'utf-8'));
-const cources = JSON.parse(fs.readFileSync(`${__dirname}/_data/courses.json`, 'utf-8'));
+// const cources = JSON.parse(fs.readFileSync(`${__dirname}/_data/courses.json`, 'utf-8'));
 
 // Import into DB
 const importData = async () => {
   try {
     await Bootcamp.create(bootcamps);
-    await Course.create(cources);
+    // await Course.create(cources);
 
     console.log('Data imported...'.green.inverse);
     process.exit();
