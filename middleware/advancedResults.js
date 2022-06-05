@@ -9,8 +9,9 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   removeFields.forEach(param => delete reqQuesry[param]);
 
   // Create operators $gt, $gte etc
+  // https://www.mongodb.com/docs/manual/reference/operator/query/gt/
   let query = JSON.stringify(req.query)
-    .replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`); // https://www.mongodb.com/docs/manual/reference/operator/query/gt/
+    .replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
 
   // Finding resource
   query = model.find(JSON.parse(query));

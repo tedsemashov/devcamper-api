@@ -82,7 +82,8 @@ exports.getBootcampsInRadius = asyncHandler(async (req, res) => {
   // Earth Radius is = 3.963 mi /6.378 km
   const radius = distance / 3963;
   const bootcamps = await Bootcamp.find({
-    location: { $geoWithin: { $centerSphere: [[lng, lat], radius] } }, // https://www.mongodb.com/docs/v5.0/reference/operator/query/centerSphere/
+    // https://www.mongodb.com/docs/v5.0/reference/operator/query/centerSphere/
+    location: { $geoWithin: { $centerSphere: [[lng, lat], radius] } },
   });
 
   res.status(200).json({
