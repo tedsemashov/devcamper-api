@@ -1,6 +1,7 @@
 const ErrorResponse = require('../utils/errorResponse');
 
-const errorHandler = (err, req, res) => {
+// eslint-disable-next-line no-unused-vars
+const errorHandler = (err, req, res, next) => {
   let error = { ...err };
 
   error.message = err.message;
@@ -22,7 +23,7 @@ const errorHandler = (err, req, res) => {
 
   // Mongoose validation error
   if (err.name === 'ValidationError') {
-    const message = Object.values(err.errors).map((val => val.message));
+    const message = Object.values(err.errors).map(val => val.message);
     error = new ErrorResponse(message, 400); // Bad request
   }
 
