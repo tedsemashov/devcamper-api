@@ -8,11 +8,13 @@ exports.protect = asyncHandler(async (req, res, next) => {
   let token;
 
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    // Set authorization token from header Bearer
     // eslint-disable-next-line prefer-destructuring
     token = req.headers.authorization.split(' ')[1];
   }
-  // else if(req.cookies.token) {
-  //     token = req.cookies.token
+  // Set authorization token from cookies as alternative way
+  // else if (req.cookies.token) {
+  //   token = req.cookies.token;
   // }
 
   // Make sure token exists
