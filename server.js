@@ -56,7 +56,7 @@ app.use(xss());
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 mins
-  max: 10,
+  max: 50,
 });
 app.use(limiter);
 
@@ -79,7 +79,7 @@ app.use('/api/v1/reviews', reviews);
 // Custom error handler
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 8000;
 // Listen server
 const server = app
   .listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold));
